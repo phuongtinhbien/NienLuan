@@ -11,7 +11,7 @@
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
     app:cardPreventCornerOverlap="true"
-    app:cardElevation="10dp"
+    app:cardElevation="4dp"
     app:cardCornerRadius="14dp"
     app:cardBackgroundColor="@color/colorPrimaryDark">
 

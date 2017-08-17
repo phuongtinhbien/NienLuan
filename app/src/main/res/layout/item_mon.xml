@@ -4,43 +4,46 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardElevation="8dp"
+    app:cardElevation="4dp"
     android:layout_margin="10dp"
     app:cardPreventCornerOverlap="true"
     app:cardCornerRadius="8dp"
     android:clickable="true"
     android:foreground="?selectableItemBackground">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_item_mon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/coffee"
-            android:id="@+id/img_item_mon"
             />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/txt_item_mon_gia"
-            android:text="VND 15.000"
-            android:textSize="20dp"
-            android:textAlignment="center"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/trangMieng"/>
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_item_mon"
-            android:text="Cà phê đen"
-            android:textSize="18dp"
+            android:layout_marginTop="4dp"
+            android:text="VND 15.000"
             android:textAlignment="center"
+            android:textColor="@color/trangMieng"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/txt_item_mon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:text="Cà phê đen"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

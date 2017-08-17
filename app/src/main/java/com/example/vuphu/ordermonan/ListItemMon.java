@@ -25,6 +25,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ListItemMon extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -105,12 +107,12 @@ public class ListItemMon extends AppCompatActivity {
     private static class item_mon extends RecyclerView.ViewHolder{
 
         TextView price, name;
-        ImageView img;
+        CircleImageView img;
         public item_mon(View itemView) {
             super(itemView);
             price = (TextView) itemView.findViewById(R.id.txt_item_mon_gia);
             name = (TextView) itemView.findViewById(R.id.txt_item_mon);
-            img = (ImageView) itemView.findViewById(R.id.img_item_mon);
+            img = (CircleImageView) itemView.findViewById(R.id.img_item_mon);
         }
     }
 
@@ -132,10 +134,18 @@ public class ListItemMon extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(item_mon holder, int position) {
+        public void onBindViewHolder(item_mon holder, final int position) {
             holder.name.setText(monItemList.get(position).getTenMon());
             holder.price.setText("VND "+monItemList.get(position).getGiaBan()+".000");
             Picasso.with(context).load(monItemList.get(position).getAnhMon()).into(holder.img);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ListItemMon.this, Order.class);
+                    intent.putExtra("key", listMonIds.get(position));
+                    startActivity(intent);
+                }
+            });
 
         }
         @Override

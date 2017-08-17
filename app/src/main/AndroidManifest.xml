@@ -16,9 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListItemMon"
+        <activity
+            android:name=".ListItemMon"
             android:label="Danh sách món"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Order"></activity>
     </application>
 
 </manifest>
