@@ -114,7 +114,6 @@ public class FragmentAll extends Fragment {
         super.onStart();
 
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
