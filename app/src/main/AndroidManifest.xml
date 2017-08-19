@@ -18,8 +18,7 @@
         </activity>
         <activity
             android:name=".ListItemMon"
-            android:label="Danh sách món"
-            android:parentActivityName=".MainActivity" />
+            android:label="Danh sách món" />
         <activity android:name=".Order"></activity>
     </application>
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -104,6 +105,18 @@ public class ListItemMon extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private static class item_mon extends RecyclerView.ViewHolder{
 
         TextView price, name;
@@ -142,6 +155,7 @@ public class ListItemMon extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ListItemMon.this, Order.class);
+                    intent.putExtra("parent", key);
                     intent.putExtra("key", listMonIds.get(position));
                     startActivity(intent);
                 }

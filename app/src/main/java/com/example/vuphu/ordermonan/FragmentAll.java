@@ -3,22 +3,31 @@ package com.example.vuphu.ordermonan;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,12 +38,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FragmentAll extends Fragment {
 
-    private RecyclerView list_item;
+    private RecyclerView list_item_mon;
+    private RecyclerView list_item_do_uong;
     private Context context;
     private List<MonItem> listMon;
-    private DatabaseReference mDatabase;
     private List<String> listMonIds;
-    private MonAdapter adapter;
+    private List<MonItem> listDoUong;
+    private List<String> listDoUongIds;
+    private DatabaseReference mDatabase;
+    private ImageView mot, hai, ba, bon;
+
+    private StorageReference mStorageRef;
+    private MonAdapter adapter_mon, adapter_do_uong;
+    private ViewFlipper khuyenMai;
     public FragmentAll() {
     }
 
@@ -48,23 +64,71 @@ public class FragmentAll extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_all, container, false);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         listMon = new ArrayList<>();
         listMonIds = new ArrayList<>();
+        listDoUong = new ArrayList<>();
+        listDoUongIds = new ArrayList<>();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        list_item = (RecyclerView) view.findViewById(R.id.list_mon_moi);
+
+        list_item_mon = (RecyclerView) view.findViewById(R.id.list_mon_moi);
+        list_item_do_uong = (RecyclerView) view.findViewById(R.id.list_do_uong_moi);
+
+
+        khuyenMai = (ViewFlipper) view.findViewById(R.id.fliper);
+        mot = new ImageView(context);
+        hai = new ImageView(context);
+        ba = new ImageView(context);
+        bon = new ImageView(context);
+
+
+        StorageReference islandRef = mStorageRef.child("khuyenmai").child("hai.jpg");
+
+        final Bitmap[] bm = new Bitmap[1];
+        final long ONE_MEGABYTE = 1024 * 1024;
+        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                bm[0] = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+        mot.setImageBitmap(bm[0]);
+        khuyenMai.addView(mot);
+        khuyenMai.addView(hai);
+        khuyenMai.addView(ba);
+        khuyenMai.addView(bon);
+        khuyenMai.startFlipping();
+        khuyenMai.setFlipInterval(4000);
+
+
+
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        list_item.setLayoutManager(manager);
-        list_item.setHasFixedSize(true);
-        Query query = mDatabase.child("Menu").child("monAn");
-        query.addChildEventListener(new ChildEventListener() {
+
+        LinearLayoutManager manager1 = new LinearLayoutManager(context);
+        manager1.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        list_item_mon.setLayoutManager(manager);
+        list_item_mon.setHasFixedSize(true);
+
+        list_item_do_uong.setLayoutManager(manager1);
+        list_item_do_uong.setHasFixedSize(true);
+
+        Query queryMon = mDatabase.child("Menu").child("monAn");
+        queryMon.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 MonItem item = dataSnapshot.getValue(MonItem.class);
                 listMon.add(item);
                 listMonIds.add(dataSnapshot.getKey().toString());
-                adapter.notifyDataSetChanged();
+                adapter_mon.notifyDataSetChanged();
 
             }
 
@@ -76,7 +140,7 @@ public class FragmentAll extends Fragment {
                 int topicIndex = listMonIds.indexOf(topicKey);
                 if (topicIndex > -1) {
                     listMon.set(topicIndex, item);
-                    adapter.notifyItemChanged(topicIndex);
+                    adapter_mon.notifyItemChanged(topicIndex);
                 }
             }
 
@@ -87,7 +151,7 @@ public class FragmentAll extends Fragment {
                 if (topicIndex > -1) {
                     listMonIds.remove(topicIndex);
                     listMon.remove(topicIndex);
-                    adapter.notifyItemRemoved(topicIndex);
+                    adapter_mon.notifyItemRemoved(topicIndex);
                 }
             }
 
@@ -101,13 +165,61 @@ public class FragmentAll extends Fragment {
 
             }
         });
+        Query queryDoUong = mDatabase.child("Menu").child("thucUong");
+        queryDoUong.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                MonItem item = dataSnapshot.getValue(MonItem.class);
+                listDoUong.add(item);
+                listDoUongIds.add(dataSnapshot.getKey().toString());
+                adapter_do_uong.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                MonItem item = dataSnapshot.getValue(MonItem.class);
+                String topicKey = dataSnapshot.getKey();
+                int topicIndex = listDoUongIds.indexOf(topicKey);
+                if (topicIndex > -1) {
+                    listDoUong.set(topicIndex, item);
+                    adapter_do_uong.notifyItemChanged(topicIndex);
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                String topicKey = dataSnapshot.getKey();
+                int topicIndex = listDoUongIds.indexOf(topicKey);
+                if (topicIndex > -1) {
+                    listDoUongIds.remove(topicIndex);
+                    listDoUong.remove(topicIndex);
+                    adapter_do_uong.notifyItemRemoved(topicIndex);
+                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         Activity a = getActivity();
-        adapter = new MonAdapter(a, listMon);
-        adapter.notifyDataSetChanged();
-        list_item.setAdapter(adapter);
+        adapter_mon = new MonAdapter(a, listMon, listMonIds, "monAn");
+        list_item_mon.setAdapter(adapter_mon);
+        adapter_mon.notifyDataSetChanged();
+
+        adapter_do_uong = new MonAdapter(a, listDoUong, listDoUongIds, "thucUong");
+        list_item_do_uong.setAdapter(adapter_do_uong);
+        adapter_mon.notifyDataSetChanged();
         return view;
     }
-
 
     @Override
     public void onStart() {
@@ -137,10 +249,14 @@ public class FragmentAll extends Fragment {
 
         Activity a;
         List<MonItem> monItemList;
+        List<String> monItemIds;
+        String parent;
 
-        public MonAdapter(Activity a, List<MonItem> monItemList) {
+        public MonAdapter(Activity a, List<MonItem> monItemList, List<String> monItemIds, String p) {
             this.a = a;
             this.monItemList = monItemList;
+            this.monItemIds = monItemIds;
+            this.parent = p;
         }
 
         @Override
@@ -159,7 +275,8 @@ public class FragmentAll extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(a, Order.class);
-                    intent.putExtra("key", listMonIds.get(position));
+                    intent.putExtra("parent", parent);
+                    intent.putExtra("key", monItemIds.get(position));
                     startActivity(intent);
                 }
             });
