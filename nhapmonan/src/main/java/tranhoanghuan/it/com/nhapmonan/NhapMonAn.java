@@ -166,8 +166,8 @@ public class NhapMonAn extends AppCompatActivity {
     private void addControls() {
         spLoai = (Spinner) findViewById(R.id.spLoai);
         dsLoai = new ArrayList<>();
-        dsLoai.add("Món ăn");
-        dsLoai.add("Thức uống");
+        dsLoai.add("monAn");
+        dsLoai.add("thucUong");
         adapterLoai = new ArrayAdapter<String>(NhapMonAn.this, android.R.layout.simple_spinner_item, dsLoai);
         adapterLoai.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spLoai.setAdapter(adapterLoai);

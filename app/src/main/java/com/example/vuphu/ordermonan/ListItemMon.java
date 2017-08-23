@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -51,7 +52,7 @@ public class ListItemMon extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         list_item_mon = (RecyclerView) findViewById(R.id.list_item_mon);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
+        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(this);
         list_item_mon.setHasFixedSize(true);
         list_item_mon.setLayoutManager(gridLayoutManager);
 

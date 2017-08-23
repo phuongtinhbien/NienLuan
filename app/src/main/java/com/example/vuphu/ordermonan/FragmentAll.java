@@ -262,7 +262,7 @@ public class FragmentAll extends Fragment {
         @Override
         public item_mon_moi onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(context).inflate(R.layout.item_mon, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_mon2, parent, false);
             return new item_mon_moi(view);
         }
 
