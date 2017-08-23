@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/black"
+    android:background="@color/bgcolor"
     tools:context="com.example.vuphu.ordermonan.MainActivity">
 
     <android.support.design.widget.AppBarLayout

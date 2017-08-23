@@ -19,7 +19,8 @@
         <activity
             android:name=".ListItemMon"
             android:label="Danh sách món" />
-        <activity android:name=".Order"></activity>
+        <activity android:name=".Order" />
+        <activity android:name=".ThanhToanActivity"></activity>
     </application>
 
 </manifest>
