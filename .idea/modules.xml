@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/NienLuan.iml" filepath="$PROJECT_DIR$/NienLuan.iml" />
       <module fileurl="file://$PROJECT_DIR$/OrderMonAn.iml" filepath="$PROJECT_DIR$/OrderMonAn.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bep/bep.iml" filepath="$PROJECT_DIR$/bep/bep.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nhapmonan/nhapmonan.iml" filepath="$PROJECT_DIR$/nhapmonan/nhapmonan.iml" />
       <module fileurl="file://$PROJECT_DIR$/thungan/thungan.iml" filepath="$PROJECT_DIR$/thungan/thungan.iml" />
     </modules>
   </component>

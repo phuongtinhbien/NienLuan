@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "706743304665",
+    "firebase_url": "https://nienluan-9cae4.firebaseio.com",
+    "project_id": "nienluan-9cae4",
+    "storage_bucket": "nienluan-9cae4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706743304665:android:af427e247831a0b9",
+        "android_client_info": {
+          "package_name": "tranhoanghuan.it.com.nhapmonan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706743304665-rdivevjh3af0bc57b1q12g4f4dsc05jl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tranhoanghuan.it.com.nhapmonan",
+            "certificate_hash": "b8ea09f47ef560b75c3ad2b98533baa68a756cc5"
+          }
+        },
+        {
+          "client_id": "706743304665-pvglc448lagile38dk67m9ah3hi73bh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABg3-llaA9HmRhCfVy_Hi1rQgfg02OEIo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706743304665-pvglc448lagile38dk67m9ah3hi73bh9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
