@@ -1,12 +1,15 @@
 package tranhoanghuan.it.com.nhapmonan;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,6 +31,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -49,6 +55,8 @@ public class NhapMonAn extends AppCompatActivity {
 
     int REQUEST_CODE_CAMERA = 1;
     int REQUEST_CODE_GALLERY = 0;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +84,8 @@ public class NhapMonAn extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog.setMessage("Đang upload dữ liệu...");
+                progressDialog.show();
                 saveDataToFirebase();
             }
         });
@@ -102,7 +112,6 @@ public class NhapMonAn extends AppCompatActivity {
         txtName.setText("");
         monAn.setGiaBan(Long.parseLong(txtPrice.getText().toString()));
         txtPrice.setText("");
-
         // Get the data from an ImageView as bytes
         StorageReference storageR = storageReference.child(dsLoai.get(lastedSelected) + "/" + monAn.getTenMon() + ".png");
         imgHinh.setDrawingCacheEnabled(true);
@@ -111,7 +120,6 @@ public class NhapMonAn extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] data = baos.toByteArray();
-
         UploadTask uploadTask = storageR.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -124,30 +132,39 @@ public class NhapMonAn extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                monAn.setAnhMon(String.valueOf(downloadUrl));
-                Log.i("tag", monAn.getAnhMon());
-                Toast.makeText(NhapMonAn.this, "tải hình thành công", Toast.LENGTH_LONG).show();
-
+                monAn.setAnhMon(downloadUrl.toString());
+                Calendar c = Calendar.getInstance();
+                DatabaseReference mDatabase2 = mDatabase.child("Menu").child(dsLoai.get(lastedSelected));
+                String key = c.getTime().toString();
+                Map<String, Object> postValues = monAn.toMap();
+                Map<String, Object> childUpdates = new HashMap<>();
+                childUpdates.put(key, postValues);
+                mDatabase2.updateChildren(childUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        progressDialog.hide();
+                        Toast.makeText(NhapMonAn.this, "Thêm món ăn thành công", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
         // Save data to Database
-        mDatabase.child("Menu").child(dsLoai.get(lastedSelected)).push().setValue(monAn, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if(databaseError == null){
-                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thành công", Toast.LENGTH_LONG).show();
-                    Toast.makeText(NhapMonAn.this, "key = " + databaseReference.getKey(), Toast.LENGTH_LONG).show();
-                    // get key
-                    //databaseReference.getKey();
-
-                }
-                else {
-                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thất bại", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
+//        mDatabase.child("Menu").child(dsLoai.get(lastedSelected)).push().setValue(monAn, new DatabaseReference.CompletionListener() {
+//            @Override
+//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+//                if(databaseError == null){
+//                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thành công", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(NhapMonAn.this, "key = " + databaseReference.getKey(), Toast.LENGTH_LONG).show();
+//                    // get key
+//                    //databaseReference.getKey();
+//
+//                }
+//                else {
+//                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thất bại", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
 
     }
 
@@ -175,6 +192,7 @@ public class NhapMonAn extends AppCompatActivity {
         adapterLoai.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spLoai.setAdapter(adapterLoai);
 
+        progressDialog = new ProgressDialog(this);
 
         imgHinh = (CircleImageView) findViewById(R.id.imgHinh);
         btnBrowse = (Button) findViewById(R.id.btnBrowse);

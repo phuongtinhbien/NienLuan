@@ -21,9 +21,6 @@
             app:popupTheme="@style/AppTheme" />
 
     </android.support.design.widget.AppBarLayout>
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,6 +32,5 @@
                 android:layout_margin="10dp"
                 tools:listitem="@layout/item_mon"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>
