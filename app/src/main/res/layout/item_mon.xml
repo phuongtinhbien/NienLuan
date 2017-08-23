@@ -22,23 +22,24 @@
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/coffee"
-            />
+            android:src="@drawable/coffee" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_gravity="center">
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/txt_item_mon"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="Cà phê đen"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="25dp"
-                android:textStyle="bold"/>
+                android:textSize="20dp"
+                android:textAllCaps="true" />
+
             <TextView
                 android:id="@+id/txt_item_mon_gia"
                 android:layout_width="match_parent"
@@ -50,6 +51,16 @@
 
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_shoping"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:tint="@color/colorAccent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_shopping_basket_black_24dp" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

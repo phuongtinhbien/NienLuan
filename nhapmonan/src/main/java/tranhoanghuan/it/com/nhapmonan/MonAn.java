@@ -5,40 +5,40 @@ package tranhoanghuan.it.com.nhapmonan;
  */
 
 public class MonAn {
-    private String ten;
-    private long gia;
-    private String loai;
+    private String tenMon;
+    private long giaBan;
+    private String anhMon;
 
     public MonAn() {
     }
 
-    public MonAn(String ten, long gia, String loai) {
-        this.ten = ten;
-        this.gia = gia;
-        this.loai = loai;
+    public MonAn(String tenMon, long giaBan, String anhMon) {
+        this.tenMon = tenMon;
+        this.giaBan = giaBan;
+        this.anhMon = anhMon;
     }
 
-    public String getTen() {
-        return ten;
+    public String getTenMon() {
+        return tenMon;
     }
 
-    public void setTen(String ten) {
-        this.ten = ten;
+    public void setTenMon(String tenMon) {
+        this.tenMon = tenMon;
     }
 
-    public long getGia() {
-        return gia;
+    public long getGiaBan() {
+        return giaBan;
     }
 
-    public void setGia(long gia) {
-        this.gia = gia;
+    public void setGiaBan(long giaBan) {
+        this.giaBan = giaBan;
     }
 
-    public String getLoai() {
-        return loai;
+    public String getAnhMon() {
+        return anhMon;
     }
 
-    public void setLoai(String loai) {
-        this.loai = loai;
+    public void setAnhMon(String anhMon) {
+        this.anhMon = anhMon;
     }
 }

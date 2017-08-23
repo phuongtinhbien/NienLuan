@@ -3,6 +3,7 @@ package com.example.vuphu.ordermonan;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -38,6 +39,9 @@ public class ListItemMon extends AppCompatActivity {
     private List<MonItem> listMon;
     private List<String> listMonIds;
     private  MonAdapter adapter;
+    private Typeface typeface;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,7 @@ public class ListItemMon extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listMon = new ArrayList<>();
         listMonIds = new ArrayList<>();
+        typeface = Typeface.createFromAsset(getAssets(), "font/vnf-quicksand-bold.ttf");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         list_item_mon = (RecyclerView) findViewById(R.id.list_item_mon);
@@ -150,6 +155,7 @@ public class ListItemMon extends AppCompatActivity {
         @Override
         public void onBindViewHolder(item_mon holder, final int position) {
             holder.name.setText(monItemList.get(position).getTenMon());
+            holder.name.setTypeface(typeface);
             holder.price.setText("VND "+monItemList.get(position).getGiaBan()+".000");
             Picasso.with(context).load(monItemList.get(position).getAnhMon()).into(holder.img);
             holder.itemView.setOnClickListener(new View.OnClickListener() {

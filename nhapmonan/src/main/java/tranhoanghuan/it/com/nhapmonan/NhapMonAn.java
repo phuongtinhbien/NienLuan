@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -97,14 +98,13 @@ public class NhapMonAn extends AppCompatActivity {
     private void saveDataToFirebase() {
 
         final MonAn monAn = new MonAn();
-        monAn.setTen(txtName.getText().toString());
+        monAn.setTenMon(txtName.getText().toString());
         txtName.setText("");
-        monAn.setGia(Long.parseLong(txtPrice.getText().toString()));
+        monAn.setGiaBan(Long.parseLong(txtPrice.getText().toString()));
         txtPrice.setText("");
-        monAn.setLoai(dsLoai.get(lastedSelected));
 
         // Get the data from an ImageView as bytes
-        StorageReference storageR = storageReference.child(dsLoai.get(lastedSelected) + "/"+monAn.getTen() + ".png");
+        StorageReference storageR = storageReference.child(dsLoai.get(lastedSelected) + "/" + monAn.getTenMon() + ".png");
         imgHinh.setDrawingCacheEnabled(true);
         imgHinh.buildDrawingCache();
         Bitmap bitmap = imgHinh.getDrawingCache();
@@ -124,6 +124,8 @@ public class NhapMonAn extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                monAn.setAnhMon(String.valueOf(downloadUrl));
+                Log.i("tag", monAn.getAnhMon());
                 Toast.makeText(NhapMonAn.this, "tải hình thành công", Toast.LENGTH_LONG).show();
 
             }
@@ -168,6 +170,7 @@ public class NhapMonAn extends AppCompatActivity {
         dsLoai = new ArrayList<>();
         dsLoai.add("monAn");
         dsLoai.add("thucUong");
+        dsLoai.add("trangMieng");
         adapterLoai = new ArrayAdapter<String>(NhapMonAn.this, android.R.layout.simple_spinner_item, dsLoai);
         adapterLoai.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spLoai.setAdapter(adapterLoai);
