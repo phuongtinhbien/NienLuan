@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
+    android:background="@android:color/black"
     tools:context="com.example.vuphu.ordermonan.FragmentAll"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -16,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="4dp"
                 android:elevation="4dp"
                 app:cardPreventCornerOverlap="true">
 
@@ -32,6 +33,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:text="Khuyến mãi"
                         android:textSize="18dp"
+                        android:fontFamily=""
                         android:padding="4dp" />
 
                     <ViewFlipper
@@ -47,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="4dp"
                 android:elevation="4dp"
                 app:cardPreventCornerOverlap="true">
 
@@ -82,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="4dp"
                 android:elevation="4dp"
                 app:cardPreventCornerOverlap="true">
 

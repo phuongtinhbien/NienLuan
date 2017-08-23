@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ public class FragmentItemChonLua extends Fragment {
     private String[] item = {"Món ăn", "Thức uống", "Tráng miệng"};
 
     private RecyclerView list_item;
+    private Typeface typeface;
 
 
     public FragmentItemChonLua() {
@@ -53,9 +55,11 @@ public class FragmentItemChonLua extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(context);
         list_item.setLayoutManager(manager);
         list_item.setHasFixedSize(true);
+        typeface = Typeface.createFromAsset(getActivity().getAssets(), "font/vnf-quicksand-bold.ttf");
         Activity a = getActivity();
         ListAdapter adapter = new ListAdapter(a);
         list_item.setAdapter(adapter);
+
         return view;
     }
 
@@ -105,7 +109,9 @@ public class FragmentItemChonLua extends Fragment {
                 holder.name = "trangMieng";
             }
             holder.img_item.setImageResource(img_item[position]);
+
             holder.tv_ten_chon_lua.setText(item[position]);
+            holder.tv_ten_chon_lua.setTypeface(typeface);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

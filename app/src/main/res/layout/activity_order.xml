@@ -21,4 +21,45 @@
             app:popupTheme="@style/AppTheme" />
     </android.support.design.widget.AppBarLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/coffee"
+        android:backgroundTint="@android:color/white"
+        android:backgroundTintMode="src_atop"
+        android:scaleType="centerCrop"
+        android:id="@+id/img_order_item" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:textColor="@android:color/black"
+            android:textAlignment="textStart"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:text="Cà phê đen"
+            android:id="@+id/txt_order_tenMon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.25"
+            android:textColor="@color/colorPrimaryDark"
+            android:textAlignment="textEnd"
+            android:textSize="24dp"
+            android:fontFamily="sans-serif"
+            android:text="VND 15.000"
+            android:id="@+id/txt_order_gia" />
+    </LinearLayout>
+
+
 </LinearLayout>

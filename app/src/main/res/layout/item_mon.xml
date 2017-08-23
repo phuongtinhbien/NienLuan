@@ -7,7 +7,7 @@
     app:cardElevation="4dp"
     android:layout_margin="10dp"
     app:cardPreventCornerOverlap="true"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="4dp"
     android:clickable="true"
     android:foreground="?selectableItemBackground">
 
