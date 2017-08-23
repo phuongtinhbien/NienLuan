@@ -28,11 +28,13 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class NhapMonAn extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference mDatabase = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReferenceFromUrl("gs://ordermonan.appspot.com/");
+    StorageReference storageReference = storage.getReferenceFromUrl("gs://ordermonan.appspot.com");
 
 
     Spinner spLoai;
@@ -40,7 +42,7 @@ public class NhapMonAn extends AppCompatActivity {
     ArrayAdapter<String> adapterLoai;
     int lastedSelected=-1;
 
-    ImageView imgHinh;
+    CircleImageView imgHinh;
     Button btnCammera, btnBrowse, btnSave;
     EditText txtName, txtPrice;
 
@@ -155,7 +157,7 @@ public class NhapMonAn extends AppCompatActivity {
             imgHinh.setImageBitmap(bitmap);
         }
         else if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
-            Uri image = (Uri) data.getData();
+            Uri image = data.getData();
             imgHinh.setImageURI(image);
         }
 
@@ -171,7 +173,7 @@ public class NhapMonAn extends AppCompatActivity {
         spLoai.setAdapter(adapterLoai);
 
 
-        imgHinh = (ImageView) findViewById(R.id.imgHinh);
+        imgHinh = (CircleImageView) findViewById(R.id.imgHinh);
         btnBrowse = (Button) findViewById(R.id.btnBrowse);
         btnCammera = (Button) findViewById(R.id.btnCamera);
         btnSave = (Button) findViewById(R.id.btnSave);
