@@ -3,6 +3,7 @@ package com.example.vuphu.ordermonan;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -43,7 +45,8 @@ public class ListItemMon extends AppCompatActivity {
     private List<String> listMonIds;
     private  MonAdapter adapter;
     private Typeface typeface;
-
+    private SharedPreferences preferences;
+    private String keyOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,9 @@ public class ListItemMon extends AppCompatActivity {
         setContentView(R.layout.activity_list_item_mon);
         toolbar = (Toolbar) findViewById(R.id.list_item_toolbar);
         Intent intent = getIntent();
+        preferences = getSharedPreferences("keyOrder", MODE_PRIVATE);
         key = intent.getStringExtra("key");
+        keyOrder = preferences.getString("keyBan", "").toString();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listMon = new ArrayList<>();
@@ -122,6 +127,11 @@ public class ListItemMon extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void thanhToan(View view) {
+        startActivity(new Intent(ListItemMon.this, ThanhToanActivity.class));
+
+    }
+
     private static class item_mon extends RecyclerView.ViewHolder{
 
         TextView price, name;
@@ -172,12 +182,18 @@ public class ListItemMon extends AppCompatActivity {
             holder.thanhtoan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DatabaseReference mdata = mDatabase.child("HoaDon");
-                    Calendar c = Calendar.getInstance();
-                    Intent intent = new Intent(ListItemMon.this, ThanhToanActivity.class);
-                    intent.putExtra("parent", key);
-                    intent.putExtra("key", listMonIds.get(position));
-                    startActivity(intent);
+                    MonOrder item = new MonOrder(monItemList.get(position).getTenMon(),
+                            monItemList.get(position).getGiaBan(),
+                            monItemList.get(position).getAnhMon(),
+                            1);
+                    String keys = monItemList.get(position).getTenMon();
+                    DatabaseReference mdata = mDatabase.child("Ban").child(keyOrder).child("HoaDon");
+                    mdata.child(keys).setValue(item, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            Toast.makeText(context, "Đã thêm vào giỏ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
 

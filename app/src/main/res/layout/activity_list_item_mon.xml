@@ -22,11 +22,30 @@
 
     </android.support.design.widget.AppBarLayout>
     .
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/list_item_mon"
-                android:layout_margin="10dp"
-                tools:listitem="@layout/item_mon"></android.support.v7.widget.RecyclerView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/list_item_mon"
+            android:layout_margin="10dp"
+            tools:listitem="@layout/item_mon"></android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:fabSize="normal"
+            android:onClick="thanhToan"
+            android:layout_margin="20dp"
+            android:layout_gravity="bottom|end"
+            app:srcCompat="@drawable/ic_shopping_basket_black_24dp" />
+
+    </FrameLayout>
+
 
 </LinearLayout>

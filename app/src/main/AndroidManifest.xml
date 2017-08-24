@@ -16,7 +16,9 @@
             android:name=".ListItemMon"
             android:label="Danh sách món" />
         <activity android:name=".Order" />
-        <activity android:name=".ThanhToanActivity" />
+        <activity
+            android:name=".ThanhToanActivity"
+            android:label="Thanh toán" />
         <activity android:name=".ChonBanActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
