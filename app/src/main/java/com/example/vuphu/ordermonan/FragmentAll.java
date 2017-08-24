@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,8 +34,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -53,6 +58,7 @@ public class FragmentAll extends Fragment {
     private StorageReference mStorageRef;
     private MonAdapter adapter_mon, adapter_do_uong;
     private ViewFlipper khuyenMai;
+    private int[] array;
     public FragmentAll() {
     }
 
@@ -90,6 +96,7 @@ public class FragmentAll extends Fragment {
         StorageReference islandRef1 = mStorageRef.child("khuyenmai/hai.jpg");
         StorageReference islandRef2 = mStorageRef.child("khuyenmai/ba.jpg");
         StorageReference islandRef3 = mStorageRef.child("khuyenmai/bon.jpg");
+        array = context.getResources().getIntArray(R.array.random_color);
 
         khuyenMai.addView(mot);
         khuyenMai.addView(hai);
@@ -229,9 +236,11 @@ public class FragmentAll extends Fragment {
 
         TextView price, name;
         CircleImageView img;
+        CardView itemCard;
 
         public item_mon_moi(View itemView) {
             super(itemView);
+            itemCard = (CardView) itemView.findViewById(R.id.card_item);
             price = (TextView) itemView.findViewById(R.id.txt_item_mon_gia);
             name = (TextView) itemView.findViewById(R.id.txt_item_mon);
             img = (CircleImageView) itemView.findViewById(R.id.img_item_mon);
@@ -263,6 +272,8 @@ public class FragmentAll extends Fragment {
         public void onBindViewHolder(item_mon_moi holder, final int position) {
             holder.name.setVisibility(View.GONE);
             holder.price.setVisibility(View.GONE);
+            int randomStr = array[new Random().nextInt(array.length)];
+            holder.itemCard.setCardBackgroundColor(randomStr);
             Picasso.with(context).load(monItemList.get(position).getAnhMon()).into(holder.img);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

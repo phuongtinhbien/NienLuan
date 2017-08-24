@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentAll(), "Trang chính");
+        adapter.addFragment(new FragmentAll(), "Hot");
         adapter.addFragment(new FragmentItemChonLua(), "Thực đơn");
         viewPager.setAdapter(adapter);
     }
@@ -71,5 +71,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(0);
+    }
 }

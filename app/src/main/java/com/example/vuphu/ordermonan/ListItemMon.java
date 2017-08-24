@@ -57,7 +57,6 @@ public class ListItemMon extends AppCompatActivity {
         listMon = new ArrayList<>();
         listMonIds = new ArrayList<>();
         typeface = Typeface.createFromAsset(getAssets(), "font/vnf-quicksand-bold.ttf");
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
         list_item_mon = (RecyclerView) findViewById(R.id.list_item_mon);
         LinearLayoutManager gridLayoutManager = new LinearLayoutManager(this);
