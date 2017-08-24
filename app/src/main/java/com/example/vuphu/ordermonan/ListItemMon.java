@@ -4,9 +4,9 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -60,8 +63,7 @@ public class ListItemMon extends AppCompatActivity {
         LinearLayoutManager gridLayoutManager = new LinearLayoutManager(this);
         list_item_mon.setHasFixedSize(true);
         list_item_mon.setLayoutManager(gridLayoutManager);
-
-        Query query = mDatabase.child("Menu").child(key);
+        Query query = mDatabase.child("Menu").child(key).orderByChild("tenMon");
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -105,12 +107,10 @@ public class ListItemMon extends AppCompatActivity {
 
             }
         });
-
         adapter = new MonAdapter(this, listMon);
         list_item_mon.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -127,11 +127,13 @@ public class ListItemMon extends AppCompatActivity {
 
         TextView price, name;
         CircleImageView img;
+        ImageView thanhtoan;
         public item_mon(View itemView) {
             super(itemView);
             price = (TextView) itemView.findViewById(R.id.txt_item_mon_gia);
             name = (TextView) itemView.findViewById(R.id.txt_item_mon);
             img = (CircleImageView) itemView.findViewById(R.id.img_item_mon);
+            thanhtoan = (ImageView) itemView.findViewById(R.id.img_shoping);
         }
     }
 
@@ -162,6 +164,18 @@ public class ListItemMon extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ListItemMon.this, Order.class);
+                    intent.putExtra("parent", key);
+                    intent.putExtra("key", listMonIds.get(position));
+                    startActivity(intent);
+                }
+            });
+
+            holder.thanhtoan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatabaseReference mdata = mDatabase.child("HoaDon");
+                    Calendar c = Calendar.getInstance();
+                    Intent intent = new Intent(ListItemMon.this, ThanhToanActivity.class);
                     intent.putExtra("parent", key);
                     intent.putExtra("key", listMonIds.get(position));
                     startActivity(intent);

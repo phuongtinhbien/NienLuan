@@ -60,6 +60,8 @@
             android:layout_margin="10dp"
             android:tint="@color/colorAccent"
             android:scaleType="centerCrop"
+            android:clickable="true"
+            android:foreground="?selectableItemBackground"
             android:src="@drawable/ic_shopping_basket_black_24dp" />
     </LinearLayout>
 

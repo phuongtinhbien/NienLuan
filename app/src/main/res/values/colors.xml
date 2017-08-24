@@ -8,4 +8,7 @@
     <color name="trangMieng">#ff5252</color>
     <color name="colorText">#26a69a</color>
     <color name="bgcolor">#eceff1</color>
+    <color name="bg_ly">#e0f2f1</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

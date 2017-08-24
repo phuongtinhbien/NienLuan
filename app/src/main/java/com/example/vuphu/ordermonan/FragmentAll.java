@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -84,30 +86,21 @@ public class FragmentAll extends Fragment {
         bon = new ImageView(context);
 
 
-        StorageReference islandRef = mStorageRef.child("khuyenmai").child("hai.jpg");
+        StorageReference islandRef = mStorageRef.child("khuyenmai/mot.png");
+        StorageReference islandRef1 = mStorageRef.child("khuyenmai/hai.jpg");
+        StorageReference islandRef2 = mStorageRef.child("khuyenmai/ba.jpg");
+        StorageReference islandRef3 = mStorageRef.child("khuyenmai/bon.jpg");
 
-        final Bitmap[] bm = new Bitmap[1];
-        final long ONE_MEGABYTE = 1024 * 1024;
-        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                bm[0] = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
-        mot.setImageBitmap(bm[0]);
         khuyenMai.addView(mot);
         khuyenMai.addView(hai);
         khuyenMai.addView(ba);
         khuyenMai.addView(bon);
         khuyenMai.startFlipping();
         khuyenMai.setFlipInterval(4000);
-
-
+        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef).into(mot);
+        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef1).into(hai);
+        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef2).into(ba);
+        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef3).into(bon);
 
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
