@@ -2,7 +2,9 @@ package tranhoanghuan.it.com.nhapmonan;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -16,13 +18,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -55,6 +55,7 @@ public class NhapMonAn extends AppCompatActivity {
 
     int REQUEST_CODE_CAMERA = 1;
     int REQUEST_CODE_GALLERY = 0;
+    Bitmap bitmap =  null;
 
     private ProgressDialog progressDialog;
 
@@ -114,9 +115,7 @@ public class NhapMonAn extends AppCompatActivity {
         txtPrice.setText("");
         // Get the data from an ImageView as bytes
         StorageReference storageR = storageReference.child(dsLoai.get(lastedSelected) + "/" + monAn.getTenMon() + ".png");
-        imgHinh.setDrawingCacheEnabled(true);
-        imgHinh.buildDrawingCache();
-        Bitmap bitmap = imgHinh.getDrawingCache();
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] data = baos.toByteArray();
@@ -149,6 +148,22 @@ public class NhapMonAn extends AppCompatActivity {
             }
         });
 
+        // Save data to Database
+//        mDatabase.child("Menu").child(dsLoai.get(lastedSelected)).push().setValue(monAn, new DatabaseReference.CompletionListener() {
+//            @Override
+//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+//                if(databaseError == null){
+//                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thành công", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(NhapMonAn.this, "key = " + databaseReference.getKey(), Toast.LENGTH_LONG).show();
+//                    // get key
+//                    //databaseReference.getKey();
+//
+//                }
+//                else {
+//                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thất bại", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
 
     }
 
@@ -156,12 +171,21 @@ public class NhapMonAn extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE_CAMERA && resultCode == RESULT_OK){
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            bitmap = (Bitmap) data.getExtras().get("data");
             imgHinh.setImageBitmap(bitmap);
         }
         else if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
             Uri image = data.getData();
-            imgHinh.setImageURI(image);
+            String[] projection = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getContentResolver().query(image, projection, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(projection[0]);
+            String filePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            bitmap = BitmapFactory.decodeFile(filePath);
+            imgHinh.setImageBitmap(bitmap);
         }
 
     }
