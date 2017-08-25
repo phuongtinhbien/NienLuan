@@ -149,22 +149,6 @@ public class NhapMonAn extends AppCompatActivity {
             }
         });
 
-        // Save data to Database
-//        mDatabase.child("Menu").child(dsLoai.get(lastedSelected)).push().setValue(monAn, new DatabaseReference.CompletionListener() {
-//            @Override
-//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//                if(databaseError == null){
-//                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thành công", Toast.LENGTH_LONG).show();
-//                    Toast.makeText(NhapMonAn.this, "key = " + databaseReference.getKey(), Toast.LENGTH_LONG).show();
-//                    // get key
-//                    //databaseReference.getKey();
-//
-//                }
-//                else {
-//                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thất bại", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
 
     }
 
