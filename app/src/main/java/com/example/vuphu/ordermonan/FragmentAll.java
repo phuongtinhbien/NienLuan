@@ -3,12 +3,7 @@ package com.example.vuphu.ordermonan;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,8 +17,6 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,9 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -59,6 +50,7 @@ public class FragmentAll extends Fragment {
     private MonAdapter adapter_mon, adapter_do_uong;
     private ViewFlipper khuyenMai;
     private int[] array;
+
     public FragmentAll() {
     }
 
@@ -226,6 +218,7 @@ public class FragmentAll extends Fragment {
         super.onStart();
 
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

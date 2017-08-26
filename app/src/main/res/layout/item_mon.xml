@@ -9,27 +9,32 @@
     app:cardPreventCornerOverlap="true"
     app:cardCornerRadius="4dp"
     android:clickable="true"
+    android:id="@+id/card_list_item"
     android:foreground="?selectableItemBackground">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="4">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_item_mon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:layout_gravity="start|center"
             android:scaleType="centerCrop"
             android:src="@drawable/coffee" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:orientation="vertical">
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
 
             <TextView
                 android:id="@+id/txt_item_mon"
@@ -58,8 +63,9 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:layout_weight="1"
             android:tint="@color/colorAccent"
-            android:scaleType="centerCrop"
+            android:scaleType="centerInside"
             android:clickable="true"
             android:foreground="?selectableItemBackground"
             android:src="@drawable/ic_shopping_basket_black_24dp" />

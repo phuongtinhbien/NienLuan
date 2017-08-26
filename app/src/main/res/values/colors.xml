@@ -16,8 +16,8 @@
     <color name="black_overlay">#66000000</color>
 
     <array name="random_color">
-        <item>@color/colorAccent</item>
-        <item>@color/thucUong</item>
+        <item>@color/bgcolor</item>
+        <item>@color/bg_ly</item>
         <item>@color/item1</item>
         <item>@color/item2</item>
         <item>@color/item3</item>

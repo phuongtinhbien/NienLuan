@@ -1,13 +1,12 @@
 package com.example.vuphu.ordermonan;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,8 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Calendar;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,10 +41,11 @@ public class ListItemMon extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private List<MonItem> listMon;
     private List<String> listMonIds;
-    private  MonAdapter adapter;
+    private MonAdapter adapter;
     private Typeface typeface;
     private SharedPreferences preferences;
     private String keyOrder;
+    private int[] array;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +65,7 @@ public class ListItemMon extends AppCompatActivity {
         list_item_mon = (RecyclerView) findViewById(R.id.list_item_mon);
         LinearLayoutManager gridLayoutManager = new LinearLayoutManager(this);
         list_item_mon.setHasFixedSize(true);
+        array = getResources().getIntArray(R.array.random_color);
         list_item_mon.setLayoutManager(gridLayoutManager);
         Query query = mDatabase.child("Menu").child(key).orderByChild("tenMon");
         query.addChildEventListener(new ChildEventListener() {
@@ -115,6 +115,7 @@ public class ListItemMon extends AppCompatActivity {
         list_item_mon.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -132,13 +133,16 @@ public class ListItemMon extends AppCompatActivity {
 
     }
 
-    private static class item_mon extends RecyclerView.ViewHolder{
+    private static class item_mon extends RecyclerView.ViewHolder {
 
         TextView price, name;
         CircleImageView img;
         ImageView thanhtoan;
+        CardView itemCard;
+
         public item_mon(View itemView) {
             super(itemView);
+            itemCard = (CardView) itemView.findViewById(R.id.card_list_item);
             price = (TextView) itemView.findViewById(R.id.txt_item_mon_gia);
             name = (TextView) itemView.findViewById(R.id.txt_item_mon);
             img = (CircleImageView) itemView.findViewById(R.id.img_item_mon);
@@ -146,7 +150,7 @@ public class ListItemMon extends AppCompatActivity {
         }
     }
 
-    private class MonAdapter extends RecyclerView.Adapter<item_mon>{
+    private class MonAdapter extends RecyclerView.Adapter<item_mon> {
 
         Context context;
         List<MonItem> monItemList;
@@ -159,15 +163,17 @@ public class ListItemMon extends AppCompatActivity {
         @Override
         public item_mon onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            View view = LayoutInflater.from(context).inflate(R.layout.item_mon,parent,false);
-            return new item_mon(view) ;
+            View view = LayoutInflater.from(context).inflate(R.layout.item_mon, parent, false);
+            return new item_mon(view);
         }
 
         @Override
         public void onBindViewHolder(item_mon holder, final int position) {
             holder.name.setText(monItemList.get(position).getTenMon());
             holder.name.setTypeface(typeface);
-            holder.price.setText("VND "+monItemList.get(position).getGiaBan()+".000");
+            int randomStr = array[new Random().nextInt(array.length)];
+            holder.itemCard.setCardBackgroundColor(randomStr);
+            holder.price.setText("VND " + monItemList.get(position).getGiaBan() + ".000");
             Picasso.with(context).load(monItemList.get(position).getAnhMon()).into(holder.img);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -187,6 +193,8 @@ public class ListItemMon extends AppCompatActivity {
                             monItemList.get(position).getAnhMon(),
                             1);
                     String keys = monItemList.get(position).getTenMon();
+//                    Calendar c = Calendar.getInstance();
+//                    String key = c.getTime().toString();
                     DatabaseReference mdata = mDatabase.child("Ban").child(keyOrder).child("HoaDon");
                     mdata.child(keys).setValue(item, new DatabaseReference.CompletionListener() {
                         @Override
@@ -198,6 +206,7 @@ public class ListItemMon extends AppCompatActivity {
             });
 
         }
+
         @Override
         public int getItemCount() {
             return monItemList.size();

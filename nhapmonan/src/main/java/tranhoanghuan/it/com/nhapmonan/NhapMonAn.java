@@ -30,8 +30,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -132,9 +135,12 @@ public class NhapMonAn extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 monAn.setAnhMon(downloadUrl.toString());
-                Calendar c = Calendar.getInstance();
+
                 DatabaseReference mDatabase2 = mDatabase.child("Menu").child(dsLoai.get(lastedSelected));
-                String key = c.getTime().toString();
+                Calendar c = Calendar.getInstance();
+                Date date = c.getTime();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                String key = dateFormat.format(date);
                 Map<String, Object> postValues = monAn.toMap();
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put(key, postValues);
