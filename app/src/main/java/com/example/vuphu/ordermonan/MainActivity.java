@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
             Log.i("tag", t);
 
         }
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

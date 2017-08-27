@@ -55,18 +55,19 @@ public class MainActivity extends AppCompatActivity {
         list_ban.setHasFixedSize(true);
         list_ban.setLayoutManager(manager);
 
-
         typeface = Typeface.createFromAsset(getAssets(), "font/vnf-quicksand-bold.ttf");
         Query query = mdatabase.child("Ban");
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Ban ban = dataSnapshot.getValue(Ban.class);
-                if (!ban.getTrangThai()) {
-                    banList.add(ban);
-                    banListIds.add(dataSnapshot.getKey());
+                Ban item = dataSnapshot.getValue(Ban.class);
+                String topicKey = dataSnapshot.getKey();
+                if (!item.getTrangThai()) {
+                    banList.add(item);
+                    banListIds.add(topicKey);
+                    adapter.notifyDataSetChanged();
+
                 }
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -75,22 +76,22 @@ public class MainActivity extends AppCompatActivity {
                 Ban item = dataSnapshot.getValue(Ban.class);
                 String topicKey = dataSnapshot.getKey();
                 int topicIndex = banListIds.indexOf(topicKey);
+                if (topicIndex > -1) {
+                    banList.set(topicIndex, item);
+                    adapter.notifyItemChanged(topicIndex);
+
+                } else if (!item.getTrangThai() && !(topicIndex > -1)) {
+                    banList.add(item);
+                    banListIds.add(topicKey);
+                    adapter.notifyDataSetChanged();
+
+                }
                 if (item.getTrangThai() && topicIndex > -1) {
                     banList.remove(topicIndex);
                     banListIds.remove(topicIndex);
                     adapter.notifyItemRemoved(topicIndex);
                 }
-                if (!item.getTrangThai()) {
-                    if (item.getName() <= banList.size()) {
-                        banList.add(item.getName() - 1, item);
-                        banListIds.add(item.getName() - 1, topicKey);
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        banList.add(item);
-                        banListIds.add(topicKey);
-                        adapter.notifyDataSetChanged();
-                    }
-                }
+
 
             }
 
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
         adapter = new BanAdapter(this, banList, banListIds);
         list_ban.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 

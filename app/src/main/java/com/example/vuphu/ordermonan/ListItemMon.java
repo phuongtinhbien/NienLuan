@@ -86,7 +86,7 @@ public class ListItemMon extends AppCompatActivity {
                 int topicIndex = listMonIds.indexOf(topicKey);
                 if (topicIndex > -1) {
                     listMon.set(topicIndex, item);
-                    adapter.notifyItemChanged(topicIndex - 1);
+                    adapter.notifyItemChanged(topicIndex);
                 }
             }
 
@@ -97,7 +97,7 @@ public class ListItemMon extends AppCompatActivity {
                 if (topicIndex > -1) {
                     listMonIds.remove(topicIndex);
                     listMon.remove(topicIndex);
-                    adapter.notifyItemRemoved(topicIndex - 1);
+                    adapter.notifyItemRemoved(topicIndex);
                 }
             }
 
