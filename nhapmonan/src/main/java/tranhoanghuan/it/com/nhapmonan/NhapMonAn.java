@@ -91,6 +91,7 @@ public class NhapMonAn extends AppCompatActivity {
                 progressDialog.setMessage("Đang upload dữ liệu...");
                 progressDialog.show();
                 saveDataToFirebase();
+                imgHinh.setImageBitmap(null);
             }
         });
 
@@ -127,7 +128,7 @@ public class NhapMonAn extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
-                Toast.makeText(NhapMonAn.this, "Lỗi tải hình", Toast.LENGTH_LONG).show();
+                Toast.makeText(NhapMonAn.this, "Tải hình thất bại", Toast.LENGTH_LONG).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -135,8 +136,20 @@ public class NhapMonAn extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 monAn.setAnhMon(downloadUrl.toString());
+                String loai = "";
+                switch (dsLoai.get(lastedSelected)) {
+                    case "Món ăn":
+                        loai = "monAn";
+                        break;
+                    case "Thức uống":
+                        loai = "thucUong";
+                        break;
+                    case "Tráng miệng":
+                        loai = "trangMieng";
+                        break;
+                }
 
-                DatabaseReference mDatabase2 = mDatabase.child("Menu").child(dsLoai.get(lastedSelected));
+                DatabaseReference mDatabase2 = mDatabase.child("Menu").child(loai);
                 Calendar c = Calendar.getInstance();
                 Date date = c.getTime();
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -149,27 +162,12 @@ public class NhapMonAn extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         progressDialog.hide();
                         Toast.makeText(NhapMonAn.this, "Thêm món ăn thành công", Toast.LENGTH_LONG).show();
+                        imgHinh.setImageResource(R.drawable.ic_add);
                     }
                 });
             }
         });
 
-        // Save data to Database
-//        mDatabase.child("Menu").child(dsLoai.get(lastedSelected)).push().setValue(monAn, new DatabaseReference.CompletionListener() {
-//            @Override
-//            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-//                if(databaseError == null){
-//                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thành công", Toast.LENGTH_LONG).show();
-//                    Toast.makeText(NhapMonAn.this, "key = " + databaseReference.getKey(), Toast.LENGTH_LONG).show();
-//                    // get key
-//                    //databaseReference.getKey();
-//
-//                }
-//                else {
-//                    Toast.makeText(NhapMonAn.this, "Thêm món ăn thất bại", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
 
     }
 
@@ -199,9 +197,9 @@ public class NhapMonAn extends AppCompatActivity {
     private void addControls() {
         spLoai = (Spinner) findViewById(R.id.spLoai);
         dsLoai = new ArrayList<>();
-        dsLoai.add("monAn");
-        dsLoai.add("thucUong");
-        dsLoai.add("trangMieng");
+        dsLoai.add("Món ăn");
+        dsLoai.add("Thức uống");
+        dsLoai.add("Tráng miệng");
         adapterLoai = new ArrayAdapter<String>(NhapMonAn.this, android.R.layout.simple_spinner_item, dsLoai);
         adapterLoai.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spLoai.setAdapter(adapterLoai);

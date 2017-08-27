@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,7 +28,7 @@ import java.io.ByteArrayOutputStream;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class KhuyenMai extends AppCompatActivity {
-    CircleImageView imgHinhKM;
+    ImageView imgHinhKM;
     Button btnSave;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReferenceFromUrl("gs://ordermonan.appspot.com");
@@ -74,7 +75,7 @@ public class KhuyenMai extends AppCompatActivity {
 
     private void addControls() {
         btnSave = (Button) findViewById(R.id.btnSave);
-        imgHinhKM = (CircleImageView) findViewById(R.id.imgHinhKM);
+        imgHinhKM = (ImageView) findViewById(R.id.imgHinhKM);
     }
 
     private void addEvents() {
@@ -95,7 +96,7 @@ public class KhuyenMai extends AppCompatActivity {
     }
 
     private void saveDataToFirebase() {
-        String name = "unknow";
+        String name = "unknown";
         switch (count){
             case 1: name = "mot"; break;
             case 2: name = "hai"; break;
@@ -123,7 +124,7 @@ public class KhuyenMai extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
-                Toast.makeText(KhuyenMai.this, "Lỗi tải hình", Toast.LENGTH_LONG).show();
+                Toast.makeText(KhuyenMai.this, "Tải hình thất bại", Toast.LENGTH_LONG).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -131,6 +132,7 @@ public class KhuyenMai extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
 //                @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 Toast.makeText(KhuyenMai.this, "Tải hình thành công", Toast.LENGTH_LONG).show();
+                imgHinhKM.setImageResource(R.drawable.ic_add);
 
             }
         });

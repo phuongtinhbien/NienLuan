@@ -5,13 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="tranhoanghuan.it.com.nhapmonan.KhuyenMai">
-    <de.hdodenhof.circleimageview.CircleImageView
+
+    <ImageView
         android:id="@+id/imgHinhKM"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
-        android:src="@color/colorPrimaryDark" />
+        android:src="@drawable/ic_add" />
 
     <LinearLayout
         android:layout_width="match_parent"
