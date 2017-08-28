@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".NhapMonAn"
-            android:label="THÊM MÓN ĂN" >
+            android:label="Thêm món ăn"
+            android:parentActivityName=".Input">
         </activity>
         <activity android:name=".Input">
             <intent-filter>
@@ -23,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".KhuyenMai"
-            android:label="THÊM KHUYẾN MÃI"></activity>
+            android:label="Thêm khuyến mãi"
+            android:parentActivityName=".Input"></activity>
     </application>
 
 </manifest>

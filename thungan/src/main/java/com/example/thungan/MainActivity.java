@@ -2,6 +2,7 @@ package com.example.thungan;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -22,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
     private static class ban_item extends RecyclerView.ViewHolder {
         TextView txt_trangThai;
         TextView soBan, txt_ThoiGian, txt_TongTien;
+        Button setLaiBanTrong, setDaThanhToan;
 
         public ban_item(View itemView) {
             super(itemView);
@@ -125,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
             txt_ThoiGian = (TextView) itemView.findViewById(R.id.txt_ThoiGian);
             txt_TongTien = (TextView) itemView.findViewById(R.id.txt_tongTien);
             txt_trangThai = (TextView) itemView.findViewById(R.id.txt_trangThai);
+            setLaiBanTrong = (Button) itemView.findViewById(R.id.btn_setLaiBanTrong);
+            setDaThanhToan = (Button) itemView.findViewById(R.id.btn_setDaThanhToan);
         }
     }
 
@@ -162,7 +168,19 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            if (banList.get(position).getDaThanhToan())
+                holder.setDaThanhToan.setBackgroundColor(Color.RED);
+
+            holder.setDaThanhToan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mdatabase.child("Ban").child(banlistIds.get(position)).child("daThanhToan").setValue(true);
+                    adapter.notifyDataSetChanged();
+                }
+            });
         }
+
 
         @Override
         public int getItemCount() {

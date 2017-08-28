@@ -91,7 +91,7 @@ public class NhapMonAn extends AppCompatActivity {
                 progressDialog.setMessage("Đang upload dữ liệu...");
                 progressDialog.show();
                 saveDataToFirebase();
-                imgHinh.setImageBitmap(null);
+
             }
         });
 
@@ -159,6 +159,7 @@ public class NhapMonAn extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         progressDialog.hide();
                         Toast.makeText(NhapMonAn.this, "Thêm món ăn thành công", Toast.LENGTH_LONG).show();
+                        imgHinh.setImageBitmap(null);
                         imgHinh.setImageResource(R.drawable.ic_add);
                     }
                 });

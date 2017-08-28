@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Thu Ngân</string>
+    <string name="datLaiBan">Đặt lại bàn</string>
+    <string name="daThanhToan">Đã thanh toán</string>
 </resources>

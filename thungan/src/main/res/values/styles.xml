@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="button" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="background">@color/colorPrimary</item>
+    </style>
+
+    <style name="button2" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="background">@color/colorAccent</item>
+    </style>
+
 </resources>
