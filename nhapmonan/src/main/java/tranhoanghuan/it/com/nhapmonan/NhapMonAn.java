@@ -150,10 +150,7 @@ public class NhapMonAn extends AppCompatActivity {
                 }
 
                 DatabaseReference mDatabase2 = mDatabase.child("Menu").child(loai);
-                Calendar c = Calendar.getInstance();
-                Date date = c.getTime();
-                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                String key = dateFormat.format(date);
+                String key = monAn.getTenMon();
                 Map<String, Object> postValues = monAn.toMap();
                 Map<String, Object> childUpdates = new HashMap<>();
                 childUpdates.put(key, postValues);

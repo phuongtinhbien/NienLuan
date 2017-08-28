@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private List<String> banListIds;
     private Typeface typeface;
     private BanAdapter adapter;
-
     private RecyclerView list_ban;
 
 
