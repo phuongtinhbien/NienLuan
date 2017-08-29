@@ -17,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +33,7 @@ import java.text.FieldPosition;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -95,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
+
             }
 
             @Override
@@ -115,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new BanAdapter(this, banList, banListIds);
         list_ban.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
 
     }
 
@@ -153,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(ban_item holder, final int position) {
+        public void onBindViewHolder(final ban_item holder, final int position) {
 
             holder.soBan.setText("" + banlist.get(position).getName());
             holder.soBan.setTypeface(typeface);
@@ -169,19 +174,57 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            if (banList.get(position).getDaThanhToan())
-                holder.setDaThanhToan.setBackgroundColor(Color.RED);
-
+            if (banList.get(position).getDaThanhToan()) {
+                holder.setDaThanhToan.setBackgroundColor(Color.parseColor("#EF5350"));
+                holder.setDaThanhToan.setText(R.string.daThanhToan);
+            } else {
+                holder.setDaThanhToan.setBackground(getResources().getDrawable(R.drawable.ripple));
+                holder.setDaThanhToan.setText("Chưa thanh toán");
+            }
             holder.setDaThanhToan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mdatabase.child("Ban").child(banlistIds.get(position)).child("daThanhToan").setValue(true);
-                    adapter.notifyDataSetChanged();
+
+                    Calendar c = Calendar.getInstance();
+                    Date date = c.getTime();
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String dateKey = dateFormat.format(date).substring(0, 11);
+                    //co k cũng dc
+                    HoaDonDaThanhToan hddtt = new HoaDonDaThanhToan(banList.get(position).getThoiGianVao(),
+                            banlist.get(position).getTongTienHienTai());
+
+                    mdatabase.child("HoaDonDaThanhToan").child(dateKey).child(hddtt.getMaHD()).setValue(hddtt.getTongTienHoaDon())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    mdatabase.child("Ban").child(banlistIds.get(position)).child("daThanhToan").setValue(true)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(context, "Bàn đã thanh toán", Toast.LENGTH_SHORT).show();
+                                                    holder.setDaThanhToan.setText(R.string.daThanhToan);
+                                                }
+                                            });
+
+                                }
+                            });
                 }
             });
+            holder.setLaiBanTrong.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (banList.get(position).getDaThanhToan()) {
+                        Ban reset = new Ban(banlist.get(position).getName(), true, false, 0, "", false);
+                        mdatabase.child("Ban").child(banlistIds.get(position)).setValue(reset);
+                        Toast.makeText(context, "Đã reset lại bàn", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(context, "Chưa thanh toán\n Không thể reset", Toast.LENGTH_SHORT).show();
+
+
+                }
+            });
+
         }
-
-
         @Override
         public int getItemCount() {
             return banlist.size();
