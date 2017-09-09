@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class Input extends AppCompatActivity {
-    CardView cvDish, cvKM;
+    CardView cvDish, cvKM, cvDeleteEdit;
 
 
     @Override
@@ -28,6 +28,14 @@ public class Input extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Input.this, KhuyenMai.class);
+                startActivity(intent);
+            }
+        });
+        cvDeleteEdit = (CardView) findViewById(R.id.cvDeleteEdit);
+        cvDeleteEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Input.this, XoaVaSua.class);
                 startActivity(intent);
             }
         });

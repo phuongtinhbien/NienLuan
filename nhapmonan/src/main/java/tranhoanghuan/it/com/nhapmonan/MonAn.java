@@ -2,6 +2,7 @@ package tranhoanghuan.it.com.nhapmonan;
 
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,12 +10,11 @@ import java.util.Map;
  * Created by tranh on 23/08/2017.
  */
 
-public class MonAn {
+public class MonAn implements Serializable {
     private String tenMon;
     private long giaBan;
     private String anhMon;
 
-    public Map<String, Boolean> stars = new HashMap<>();
 
     public MonAn() {
     }
@@ -49,13 +49,12 @@ public class MonAn {
         this.anhMon = anhMon;
     }
 
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("anhMon", this.anhMon);
-        result.put("giaBan", this.giaBan);
-        result.put("tenMon", this.tenMon);
-
-        return result;
+    @Override
+    public String toString() {
+        return "MonAn{" +
+                "tenMon='" + tenMon + '\'' +
+                ", giaBan=" + giaBan +
+                ", anhMon='" + anhMon + '\'' +
+                '}';
     }
 }

@@ -6,25 +6,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="3"
-    tools:context="tranhoanghuan.it.com.nhapmonan.Input">
+    tools:context="tranhoanghuan.it.com.nhapmonan.XoaVaSua">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cvDish"
+        android:id="@+id/cvMonAn"
         android:layout_width="match_parent"
         android:foreground="?selectableItemBackground"
         app:cardBackgroundColor="@color/colorAccent"
         android:layout_height="match_parent"
         android:clickable="true"
+        android:onClick="monAn"
         android:layout_margin="10dp"
         app:cardCornerRadius="15dp"
         android:layout_weight="1">
 
         <ImageView
             android:layout_gravity="center"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:paddingBottom="30dp"
-            android:src="@drawable/ic_add_dish" />
+            android:src="@drawable/food_outline" />
 
         <TextView
             android:layout_gravity="bottom|center_horizontal"
@@ -35,14 +36,15 @@
             android:paddingBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm món ăn" />
+            android:text="Món ăn" />
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cvKM"
+        android:id="@+id/cvThucUong"
         android:layout_width="match_parent"
         android:foreground="?selectableItemBackground"
         android:clickable="true"
+        android:onClick="thucUong"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/colorAccent"
@@ -51,10 +53,10 @@
 
         <ImageView
             android:layout_gravity="center"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:paddingBottom="30dp"
-            android:src="@drawable/ic_add_km" />
+            android:src="@drawable/drink_icon" />
 
         <TextView
             android:layout_gravity="bottom|center_horizontal"
@@ -64,27 +66,21 @@
             android:paddingBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thêm khuyến mãi" />
+            android:text="Thức uống" />
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cvDeleteEdit"
+        android:id="@+id/cvTrangMieng"
         android:layout_width="match_parent"
         android:foreground="?selectableItemBackground"
         android:clickable="true"
+        android:onClick="trangMieng"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/colorAccent"
         android:layout_weight="1"
         app:cardCornerRadius="15dp">
 
-        <ImageView
-            android:layout_gravity="center"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:paddingBottom="30dp"
-            android:src="@drawable/ic_add_km" />
-
         <TextView
             android:layout_gravity="bottom|center_horizontal"
             android:textColor="@android:color/black"
@@ -93,8 +89,15 @@
             android:paddingBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xóa và Sửa" />
-    </android.support.v7.widget.CardView>
+            android:text="Tráng miệng" />
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center"
+            android:paddingBottom="30dp"
+            android:src="@drawable/cake_icons" />
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

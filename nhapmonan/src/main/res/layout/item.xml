@@ -1,0 +1,94 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="4dp"
+    android:layout_margin="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardCornerRadius="4dp"
+    android:clickable="true"
+    android:id="@+id/card_list_item"
+    android:foreground="?selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgHinh"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:layout_gravity="start|center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/coffee" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/txtTenMon"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Cà phê đen"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/txtGia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="VND 15.000"
+                android:textColor="@color/trangMieng"
+                android:textSize="14dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:weightSum="2">
+
+            <ImageView
+                android:id="@+id/img_edit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:foreground="?selectableItemBackground"
+                android:src="@drawable/ic_edit" />
+
+            <ImageView
+                android:id="@+id/img_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:scaleType="centerInside"
+                android:clickable="true"
+                android:foreground="?selectableItemBackground"
+                android:src="@drawable/ic_delete" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
