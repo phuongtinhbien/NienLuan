@@ -28,6 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.R.attr.key;
 import static android.R.attr.theme;
 import static android.R.attr.typeface;
+import static tranhoanghuan.it.com.nhapmonan.DsMon.adapter;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.listMonIds;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.loai;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.mDatabase;
@@ -71,6 +72,7 @@ public class AdapterMon extends RecyclerView.Adapter<item_mon> {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         Toast.makeText(v.getContext(), "Xóa thành công", Toast.LENGTH_LONG).show();
+                        adapter.notifyDataSetChanged();
                     }
                 });
             }

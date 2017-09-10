@@ -29,7 +29,7 @@ public class DsMon extends AppCompatActivity {
     public static String loai;
     public static List<MonAn> listMon;
     public static List<String> listMonIds;
-    private AdapterMon adapter;
+    public static AdapterMon adapter;
     private Typeface typeface;
 
     protected void onCreate(Bundle savedInstanceState) {
