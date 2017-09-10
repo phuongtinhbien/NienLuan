@@ -40,16 +40,15 @@ public class AdapterMon extends RecyclerView.Adapter<item_mon> {
     Context context;
     List<MonAn> monItemList;
     private Typeface typeface;
-    private int[] array;
 
     public AdapterMon() {
     }
 
-    public AdapterMon(Context context, List<MonAn> monItemList, Typeface typeface, int[] array) {
+    public AdapterMon(Context context, List<MonAn> monItemList, Typeface typeface) {
         this.context = context;
         this.monItemList = monItemList;
         this.typeface = typeface;
-        this.array = array;
+
     }
 
     @Override
@@ -63,8 +62,6 @@ public class AdapterMon extends RecyclerView.Adapter<item_mon> {
     public void onBindViewHolder(item_mon holder, final int position) {
         holder.txtTenMon.setText(monItemList.get(position).getTenMon());
         holder.txtTenMon.setTypeface(typeface);
-        int randomStr = array[new Random().nextInt(array.length)];
-        holder.itemCard.setCardBackgroundColor(randomStr);
         holder.txtGia.setText("VND " + monItemList.get(position).getGiaBan() + ".000");
         Picasso.with(context).load(monItemList.get(position).getAnhMon()).into(holder.imgHinh);
         holder.img_delete.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +93,7 @@ public class AdapterMon extends RecyclerView.Adapter<item_mon> {
 
 class item_mon extends RecyclerView.ViewHolder {
     TextView txtGia, txtTenMon;
-    CircleImageView imgHinh;
+    ImageView imgHinh;
     CardView itemCard;
     ImageView img_delete, img_edit;
 
@@ -104,7 +101,7 @@ class item_mon extends RecyclerView.ViewHolder {
         super(itemView);
         txtGia = (TextView) itemView.findViewById(R.id.txtGia);
         txtTenMon = (TextView) itemView.findViewById(R.id.txtTenMon);
-        imgHinh = (CircleImageView) itemView.findViewById(R.id.imgHinh);
+        imgHinh = (ImageView) itemView.findViewById(R.id.imgHinh);
         img_delete = (ImageView) itemView.findViewById(R.id.img_delete);
         img_edit = (ImageView) itemView.findViewById(R.id.img_edit);
         itemCard = (CardView) itemView.findViewById(R.id.card_list_item);

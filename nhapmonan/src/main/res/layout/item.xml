@@ -3,10 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="4dp"
-    android:layout_margin="10dp"
-    app:cardPreventCornerOverlap="true"
-    app:cardCornerRadius="4dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
+    app:cardCornerRadius="1dp"
+    app:cardElevation="20dp"
     android:clickable="true"
     android:id="@+id/card_list_item"
     android:foreground="?selectableItemBackground">
@@ -15,15 +17,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="4">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/imgHinh"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_weight="1"
-            android:layout_gravity="start|center"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/coffee" />
 
@@ -37,18 +39,20 @@
 
             <TextView
                 android:id="@+id/txtTenMon"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="textStart"
                 android:text="Cà phê đen"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textAllCaps="true" />
 
             <TextView
                 android:id="@+id/txtGia"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textAlignment="textStart"
                 android:text="VND 15.000"
                 android:textColor="@color/trangMieng"
                 android:textSize="14dp" />
@@ -61,7 +65,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
             android:weightSum="2">
 
             <ImageView
@@ -69,10 +74,10 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:scaleType="centerInside"
                 android:clickable="true"
-                android:foreground="?selectableItemBackground"
+                android:background="?selectableItemBackground"
                 android:src="@drawable/ic_edit" />
 
             <ImageView
@@ -80,10 +85,10 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:scaleType="centerInside"
                 android:clickable="true"
-                android:foreground="?selectableItemBackground"
+                android:background="?selectableItemBackground"
                 android:src="@drawable/ic_delete" />
 
         </LinearLayout>

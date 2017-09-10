@@ -31,7 +31,6 @@ public class DsMon extends AppCompatActivity {
     public static List<String> listMonIds;
     private AdapterMon adapter;
     private Typeface typeface;
-    private int[] array;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +49,9 @@ public class DsMon extends AppCompatActivity {
         list_item_mon = (RecyclerView) findViewById(R.id.list_item_mon);
         LinearLayoutManager gridLayoutManager = new LinearLayoutManager(this);
         list_item_mon.setHasFixedSize(true);
-        array = getResources().getIntArray(R.array.random_color);
         list_item_mon.setLayoutManager(gridLayoutManager);
         loadDataFromFB();
-        adapter = new AdapterMon(this, listMon, typeface, array);
+        adapter = new AdapterMon(this, listMon, typeface);
         list_item_mon.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

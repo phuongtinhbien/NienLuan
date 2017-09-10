@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         list_ban.setLayoutManager(manager);
 
         typeface = Typeface.createFromAsset(getAssets(), "font/vnf-quicksand-bold.ttf");
-        Query query = mdatabase.child("Ban");
+        Query query = mdatabase.child("HoaDonDaTao");
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -95,9 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     banList.remove(topicIndex);
                     banListIds.remove(topicIndex);
                     adapter.notifyItemRemoved(topicIndex);
+                    adapter.notifyDataSetChanged();
                 }
-
-
 
             }
 
@@ -119,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new BanAdapter(this, banList, banListIds);
         list_ban.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
-
     }
 
     private static class ban_item extends RecyclerView.ViewHolder {
@@ -162,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
             holder.soBan.setText("" + banlist.get(position).getName());
             holder.soBan.setTypeface(typeface);
-            holder.txt_TongTien.setText(" " + banlist.get(position).getTongTienHienTai() + ".000 VND");
+            holder.txt_TongTien.setText(" " + banlist.get(position).getTongTienBan() + ".000 VND");
             holder.txt_trangThai.setText("Đang dùng...");
             holder.txt_ThoiGian.setText(banlist.get(position).getThoiGianVao());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -191,20 +188,20 @@ public class MainActivity extends AppCompatActivity {
                     String dateKey = dateFormat.format(date).substring(0, 11);
                     //co k cũng dc
                     HoaDonDaThanhToan hddtt = new HoaDonDaThanhToan(banList.get(position).getThoiGianVao(),
-                            banlist.get(position).getTongTienHienTai());
+                            banlist.get(position).getTongTienBan());
 
-                    mdatabase.child("HoaDonDaThanhToan").child(dateKey).child(hddtt.getMaHD()).setValue(hddtt.getTongTienHoaDon())
+                    mdatabase.child("DanhThuTheoNgay").child(dateKey).child(hddtt.getMaHD()).setValue(hddtt.getTongTienHoaDon())
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    mdatabase.child("Ban").child(banlistIds.get(position)).child("daThanhToan").setValue(true)
+                                    mdatabase.child("HoaDonDaTao").child(banlistIds.get(position)).child("daThanhToan").setValue(true)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Toast.makeText(context, "Bàn đã thanh toán", Toast.LENGTH_SHORT).show();
                                                     holder.setDaThanhToan.setText(R.string.daThanhToan);
-                                                }
-                                            });
+                                }
+                            });
 
                                 }
                             });
@@ -215,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (banList.get(position).getDaThanhToan()) {
                         Ban reset = new Ban(banlist.get(position).getName(), true, false, 0, "", false);
+                        mdatabase.child("HoaDonDaTao").child(banlistIds.get(position)).setValue(reset);
                         mdatabase.child("Ban").child(banlistIds.get(position)).setValue(reset);
                         Toast.makeText(context, "Đã reset lại bàn", Toast.LENGTH_SHORT).show();
                     } else
