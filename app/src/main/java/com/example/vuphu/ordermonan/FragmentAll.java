@@ -85,9 +85,13 @@ public class FragmentAll extends Fragment {
 
 
         StorageReference islandRef = mStorageRef.child("khuyenmai/mot.png");
-        StorageReference islandRef1 = mStorageRef.child("khuyenmai/hai.jpg");
-        StorageReference islandRef2 = mStorageRef.child("khuyenmai/ba.jpg");
-        StorageReference islandRef3 = mStorageRef.child("khuyenmai/bon.jpg");
+        StorageReference islandRef1 = mStorageRef.child("khuyenmai/hai.png");
+        StorageReference islandRef2 = mStorageRef.child("khuyenmai/ba.png");
+        StorageReference islandRef3 = mStorageRef.child("khuyenmai/bon.png");
+        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef).into(mot);
+        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef1).into(hai);
+        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef2).into(ba);
+        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef3).into(bon);
         array = context.getResources().getIntArray(R.array.random_color);
 
         khuyenMai.addView(mot);
@@ -96,10 +100,7 @@ public class FragmentAll extends Fragment {
         khuyenMai.addView(bon);
         khuyenMai.startFlipping();
         khuyenMai.setFlipInterval(4000);
-        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef).into(mot);
-        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef1).into(hai);
-        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef2).into(ba);
-        Glide.with(this).using(new FirebaseImageLoader()).load(islandRef3).into(bon);
+
 
         LinearLayoutManager manager = new LinearLayoutManager(context);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);

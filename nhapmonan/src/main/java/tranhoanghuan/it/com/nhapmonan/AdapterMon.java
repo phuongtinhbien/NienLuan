@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,8 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,9 +32,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.R.attr.key;
 import static android.R.attr.theme;
 import static android.R.attr.typeface;
+import static tranhoanghuan.it.com.nhapmonan.DsMon.adapter;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.listMonIds;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.loai;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.mDatabase;
+import static tranhoanghuan.it.com.nhapmonan.SuaMonAn.storageReference;
 
 /**
  * Created by tranh on 03/09/2017.
@@ -67,10 +73,23 @@ public class AdapterMon extends RecyclerView.Adapter<item_mon> {
         holder.img_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                StorageReference storageR = storageReference.child(loai + "/" + monItemList.get(position).getTenMon() + ".png");
+                storageR.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(context, "Xóa hình ảnh thành công", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(context, exception.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
                 mDatabase.child("Menu").child(loai).child(listMonIds.get(position)).removeValue(new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                         Toast.makeText(v.getContext(), "Xóa thành công", Toast.LENGTH_LONG).show();
+                        adapter.notifyDataSetChanged();
                     }
                 });
             }
