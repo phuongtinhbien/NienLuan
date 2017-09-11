@@ -36,8 +36,8 @@ import static tranhoanghuan.it.com.nhapmonan.DsMon.loai;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.mDatabase;
 
 public class SuaMonAn extends AppCompatActivity {
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference = storage.getReferenceFromUrl("gs://ordermonan.appspot.com");
+    public static FirebaseStorage storage = FirebaseStorage.getInstance();
+    public static StorageReference storageReference = storage.getReferenceFromUrl("gs://ordermonan.appspot.com");
     CircleImageView imgHinh;
     Button btnCammera, btnBrowse, btnSave;
     EditText txtName, txtPrice;

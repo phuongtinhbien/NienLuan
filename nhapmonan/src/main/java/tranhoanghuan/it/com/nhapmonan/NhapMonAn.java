@@ -51,6 +51,7 @@ public class NhapMonAn extends AppCompatActivity {
     ArrayList<String> dsLoai;
     ArrayAdapter<String> adapterLoai;
     int lastedSelected=-1;
+    String loai = "";
 
     CircleImageView imgHinh;
     Button btnCammera, btnBrowse, btnSave;
@@ -117,13 +118,25 @@ public class NhapMonAn extends AppCompatActivity {
         txtName.setText("");
         monAn.setGiaBan(Long.parseLong(txtPrice.getText().toString()));
         txtPrice.setText("");
+        switch (dsLoai.get(lastedSelected)) {
+            case "Món ăn":
+                loai = "monAn";
+                break;
+            case "Thức uống":
+                loai = "thucUong";
+                break;
+            case "Tráng miệng":
+                loai = "trangMieng";
+                break;
+        }
         // Get the data from an ImageView as bytes
-        StorageReference storageR = storageReference.child(dsLoai.get(lastedSelected) + "/" + monAn.getTenMon() + ".png");
+        StorageReference storageR = storageReference.child(loai + "/" + monAn.getTenMon() + ".png");
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = storageR.putBytes(data);
+        final String finalLoai = loai;
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
@@ -136,19 +149,6 @@ public class NhapMonAn extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 monAn.setAnhMon(downloadUrl.toString());
-                String loai = "";
-                switch (dsLoai.get(lastedSelected)) {
-                    case "Món ăn":
-                        loai = "monAn";
-                        break;
-                    case "Thức uống":
-                        loai = "thucUong";
-                        break;
-                    case "Tráng miệng":
-                        loai = "trangMieng";
-                        break;
-                }
-
                 DatabaseReference mDatabase2 = mDatabase.child("Menu").child(loai);
                 String key = monAn.getTenMon();
                 Map<String, Object> childUpdates = new HashMap<>();
