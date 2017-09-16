@@ -29,6 +29,7 @@ import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.R.attr.fillViewport;
 import static android.R.attr.key;
 import static android.R.attr.theme;
 import static android.R.attr.typeface;
@@ -94,12 +95,37 @@ public class AdapterMon extends RecyclerView.Adapter<item_mon> {
                 });
             }
         });
-        holder.img_edit.setOnClickListener(new View.OnClickListener() {
+
+        if (monItemList.get(position).isHetHang()) {
+            holder.img_huyHetHang.setVisibility(View.VISIBLE);
+            holder.img_hetHang.setVisibility(View.INVISIBLE);
+        }
+        if (monItemList.get(position).isHetHang() == false) {
+            holder.img_hetHang.setVisibility(View.VISIBLE);
+            holder.img_huyHetHang.setVisibility(View.INVISIBLE);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SuaMonAn.class);
                 intent.putExtra("position", position);
                 context.startActivity(intent);
+            }
+        });
+        holder.img_hetHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                monItemList.get(position).setHetHang(true);
+                mDatabase.child("Menu").child(loai).child(listMonIds.get(position)).child("hetHang").setValue(monItemList.get(position).isHetHang());
+            }
+        });
+
+        holder.img_huyHetHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                monItemList.get(position).setHetHang(false);
+                mDatabase.child("Menu").child(loai).child(listMonIds.get(position)).child("hetHang").setValue(monItemList.get(position).isHetHang());
             }
         });
     }
@@ -114,7 +140,7 @@ class item_mon extends RecyclerView.ViewHolder {
     TextView txtGia, txtTenMon;
     ImageView imgHinh;
     CardView itemCard;
-    ImageView img_delete, img_edit;
+    ImageView img_delete, img_hetHang, img_huyHetHang;
 
     public item_mon(View itemView) {
         super(itemView);
@@ -122,7 +148,8 @@ class item_mon extends RecyclerView.ViewHolder {
         txtTenMon = (TextView) itemView.findViewById(R.id.txtTenMon);
         imgHinh = (ImageView) itemView.findViewById(R.id.imgHinh);
         img_delete = (ImageView) itemView.findViewById(R.id.img_delete);
-        img_edit = (ImageView) itemView.findViewById(R.id.img_edit);
+        img_hetHang = (ImageView) itemView.findViewById(R.id.img_hetHang);
+        img_huyHetHang = (ImageView) itemView.findViewById(R.id.img_huyHetHang);
         itemCard = (CardView) itemView.findViewById(R.id.card_list_item);
     }
 

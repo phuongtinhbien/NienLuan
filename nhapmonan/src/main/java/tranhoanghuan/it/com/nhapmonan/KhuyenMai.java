@@ -35,7 +35,7 @@ public class KhuyenMai extends AppCompatActivity {
     Bitmap bitmap =  null;
 
     int REQUEST_CODE_GALLERY = 0;
-    int count = 4;
+    int count;
 
 
     @Override

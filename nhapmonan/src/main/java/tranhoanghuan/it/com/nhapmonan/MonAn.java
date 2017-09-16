@@ -14,15 +14,17 @@ public class MonAn implements Serializable {
     private String tenMon;
     private long giaBan;
     private String anhMon;
+    private boolean hetHang;
 
 
     public MonAn() {
     }
 
-    public MonAn(String tenMon, long giaBan, String anhMon) {
+    public MonAn(String tenMon, long giaBan, String anhMon, boolean hetHang) {
         this.tenMon = tenMon;
         this.giaBan = giaBan;
         this.anhMon = anhMon;
+        this.hetHang = hetHang;
     }
 
     public String getTenMon() {
@@ -49,12 +51,11 @@ public class MonAn implements Serializable {
         this.anhMon = anhMon;
     }
 
-    @Override
-    public String toString() {
-        return "MonAn{" +
-                "tenMon='" + tenMon + '\'' +
-                ", giaBan=" + giaBan +
-                ", anhMon='" + anhMon + '\'' +
-                '}';
+    public boolean isHetHang() {
+        return hetHang;
+    }
+
+    public void setHetHang(boolean hetHang) {
+        this.hetHang = hetHang;
     }
 }
