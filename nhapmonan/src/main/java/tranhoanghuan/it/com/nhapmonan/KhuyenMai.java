@@ -136,7 +136,6 @@ public class KhuyenMai extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
