@@ -35,7 +35,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:orientation="vertical"
-            android:layout_weight="2">
+            android:layout_weight="3">
 
             <TextView
                 android:id="@+id/txtTenMon"
@@ -57,39 +57,51 @@
                 android:textColor="@color/trangMieng"
                 android:textSize="14dp" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="left"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:weightSum="3">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/img_hetHang"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:scaleType="centerInside"
+                    android:clickable="true"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_goxuong" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:weightSum="2">
+                <ImageView
+                    android:id="@+id/img_huyHetHang"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:scaleType="centerInside"
+                    android:clickable="true"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_huy" />
 
-            <ImageView
-                android:id="@+id/img_edit"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:scaleType="centerInside"
-                android:clickable="true"
-                android:background="?selectableItemBackground"
-                android:src="@drawable/ic_edit" />
+                <ImageView
+                    android:id="@+id/img_delete"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:scaleType="centerInside"
+                    android:clickable="true"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_delete" />
 
-            <ImageView
-                android:id="@+id/img_delete"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:scaleType="centerInside"
-                android:clickable="true"
-                android:background="?selectableItemBackground"
-                android:src="@drawable/ic_delete" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
