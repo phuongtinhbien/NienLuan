@@ -6,12 +6,12 @@ package com.example.thungan;
 
 public class HoaDonDaThanhToan {
     private String maHD;
-    private int tongTienHoaDon;
+    private long tongTienHoaDon;
 
     public HoaDonDaThanhToan() {
     }
 
-    public HoaDonDaThanhToan(String maHD, int tongTienHoaDon) {
+    public HoaDonDaThanhToan(String maHD, long tongTienHoaDon) {
         this.maHD = maHD;
         this.tongTienHoaDon = tongTienHoaDon;
     }
@@ -24,7 +24,7 @@ public class HoaDonDaThanhToan {
         this.maHD = maHD;
     }
 
-    public int getTongTienHoaDon() {
+    public long getTongTienHoaDon() {
         return tongTienHoaDon;
     }
 

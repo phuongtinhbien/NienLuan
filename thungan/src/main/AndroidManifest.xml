@@ -18,7 +18,8 @@
         </activity>
         <activity
             android:name=".DetailHoaDonActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:theme="@style/DialogActivityTheme" />
+        <activity android:name=".ListHD"></activity>
     </application>
 
 </manifest>
