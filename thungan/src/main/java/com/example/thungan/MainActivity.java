@@ -118,12 +118,10 @@ public class MainActivity extends AppCompatActivity {
                     adapter.notifyItemRemoved(topicIndex);
                     adapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
             }
 
             @Override
