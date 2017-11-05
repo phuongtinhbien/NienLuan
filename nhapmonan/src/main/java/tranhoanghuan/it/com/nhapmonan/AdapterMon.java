@@ -55,7 +55,6 @@ public class AdapterMon extends RecyclerView.Adapter<item_mon> {
         this.context = context;
         this.monItemList = monItemList;
         this.typeface = typeface;
-
     }
 
     @Override

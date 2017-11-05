@@ -27,9 +27,17 @@
             android:name=".KhuyenMai"
             android:label="Thêm khuyến mãi"
             android:parentActivityName=".Input" />
-        <activity android:name=".XoaVaSua" />
-        <activity android:name=".DsMon" />
-        <activity android:name=".SuaMonAn"></activity>
+        <activity
+            android:name=".XoaVaSua"
+            android:label="Xóa và Sửa"
+            android:parentActivityName=".Input" />
+        <activity
+            android:name=".DsMon"
+            android:label="Xóa và Sửa"
+            android:parentActivityName=".XoaVaSua" />
+        <activity
+            android:name=".SuaMonAn"
+            android:label="Sửa món ăn"></activity>
     </application>
 
 </manifest>

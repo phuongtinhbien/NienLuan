@@ -32,6 +32,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static tranhoanghuan.it.com.nhapmonan.DsMon.listMon;
+import static tranhoanghuan.it.com.nhapmonan.DsMon.listMonIds;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.loai;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.mDatabase;
 
@@ -43,6 +44,7 @@ public class SuaMonAn extends AppCompatActivity {
     EditText txtName, txtPrice;
     int position;
     MonAn monAn;
+    String keyMon;
     String url;
 
     int REQUEST_CODE_CAMERA = 1;
@@ -127,7 +129,7 @@ public class SuaMonAn extends AppCompatActivity {
                 }
             });
         }
-        mDatabase.child("Menu").child(loai).child(monAn.getTenMon()).removeValue(new DatabaseReference.CompletionListener() {
+        mDatabase.child("Menu").child(loai).child(keyMon).removeValue(new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 Toast.makeText(SuaMonAn.this, "Xóa dữ liệu thành công", Toast.LENGTH_LONG).show();
@@ -204,6 +206,7 @@ public class SuaMonAn extends AppCompatActivity {
         Intent intent = getIntent();
         position = intent.getIntExtra("position", -1);
         monAn = listMon.get(position);
+        keyMon = listMonIds.get(position);
         progressDialog = new ProgressDialog(this);
         imgHinh = (CircleImageView) findViewById(R.id.imgHinh);
         Picasso.with(SuaMonAn.this).load(monAn.getAnhMon()).into(imgHinh);
