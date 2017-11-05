@@ -1,11 +1,14 @@
 package tranhoanghuan.it.com.nhapmonan;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class Input extends AppCompatActivity {
     CardView cvDish, cvKM, cvDeleteEdit;
@@ -15,6 +18,9 @@ public class Input extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
+        if (!isNetworkConnected()) {
+            Toast.makeText(this, "Không có kết nối mạng! Vui lòng kết nối Internet", Toast.LENGTH_LONG).show();
+        }
         cvDish = (CardView) findViewById(R.id.cvDish);
         cvDish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +46,12 @@ public class Input extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
 
 }

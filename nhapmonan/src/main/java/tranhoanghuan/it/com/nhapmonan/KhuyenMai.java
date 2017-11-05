@@ -3,12 +3,15 @@ package tranhoanghuan.it.com.nhapmonan;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,21 +30,30 @@ import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class KhuyenMai extends AppCompatActivity {
+public class KhuyenMai extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     ImageView imgHinhKM;
     Button btnSave;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReferenceFromUrl("gs://ordermonan.appspot.com");
     Bitmap bitmap =  null;
+    private static final int REQUEST_WRITE_PERMISSION = 786;
 
     int REQUEST_CODE_GALLERY = 0;
     int count;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_WRITE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            addEvents();
+        }
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_khuyenmai);
+        requestPermission();
         addControls();
         addEvents();
     }
@@ -93,6 +105,14 @@ public class KhuyenMai extends AppCompatActivity {
                 saveDataToFirebase();
             }
         });
+    }
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+        } else {
+            addEvents();
+        }
     }
 
     private void saveDataToFirebase() {

@@ -2,12 +2,15 @@ package tranhoanghuan.it.com.nhapmonan;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,7 +39,7 @@ import static tranhoanghuan.it.com.nhapmonan.DsMon.listMonIds;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.loai;
 import static tranhoanghuan.it.com.nhapmonan.DsMon.mDatabase;
 
-public class SuaMonAn extends AppCompatActivity {
+public class SuaMonAn extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     public static FirebaseStorage storage = FirebaseStorage.getInstance();
     public static StorageReference storageReference = storage.getReferenceFromUrl("gs://ordermonan.appspot.com");
     CircleImageView imgHinh;
@@ -46,6 +49,7 @@ public class SuaMonAn extends AppCompatActivity {
     MonAn monAn;
     String keyMon;
     String url;
+    private static final int REQUEST_WRITE_PERMISSION = 786;
 
     int REQUEST_CODE_CAMERA = 1;
     int REQUEST_CODE_GALLERY = 0;
@@ -54,9 +58,17 @@ public class SuaMonAn extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_WRITE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            addEvents();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sua_mon_an);
+        requestPermission();
         addControls();
         addEvents();
     }
@@ -92,6 +104,14 @@ public class SuaMonAn extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+        } else {
+            addEvents();
+        }
     }
 
     private void addData() {
