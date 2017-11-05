@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    app:cardElevation="4dp"
+    android:layout_margin="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardCornerRadius="4dp"
+    app:cardBackgroundColor="@color/bgcolor"
+    android:foreground="?selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="40dp"
+            android:layout_gravity="center"
+            app:cardElevation="4dp"
+            android:foreground="?selectableItemBackground">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:src="@color/colorAccent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="2"
+                android:id="@+id/txt_ban"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="40dp" />
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_watch_later_black_24dp"
+                android:text="20-7-2017  10:30"
+                android:id="@+id/txt_ThoiGian"
+                android:textSize="18dp"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:drawableLeft="@drawable/ic_monetization_on_black_24dp"
+                android:drawablePadding="10dp"
+                android:text="300.000 VND"
+                android:id="@+id/txt_tongTien"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:drawableLeft="@drawable/ic_local_dining_black_24dp"
+                android:drawablePadding="10dp"
+                android:text="Đang dùng"
+                android:id="@+id/txt_trangThai"
+                android:textSize="18dp" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

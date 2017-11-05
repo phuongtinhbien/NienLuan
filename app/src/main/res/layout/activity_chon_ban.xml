@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@android:color/black"
+    tools:context="com.example.vuphu.ordermonan.ChonBanActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đang tìm bàn cho bạn"
+        android:textAllCaps="true"
+        android:layout_margin="10dp"
+        android:id="@+id/trangThai"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="25dp"
+        android:fontFamily="monospace" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_ban"
+        android:layout_gravity="center"
+        tools:listitem="@layout/item_ban_trong"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

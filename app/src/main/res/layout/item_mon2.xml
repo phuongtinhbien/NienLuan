@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardCornerRadius="4dp"
+    android:clickable="true"
+    android:id="@+id/card_item"
+    android:foreground="?selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_item_mon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/coffee" />
+
+        <TextView
+            android:id="@+id/txt_item_mon_gia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="VND 15.000"
+            android:textAlignment="center"
+            android:textColor="@color/trangMieng"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/txt_item_mon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Cà phê đen"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
