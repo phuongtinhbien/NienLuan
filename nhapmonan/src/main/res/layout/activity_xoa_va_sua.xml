@@ -6,18 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="3"
+    android:background="@color/item3"
     tools:context="tranhoanghuan.it.com.nhapmonan.XoaVaSua">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cvMonAn"
         android:layout_width="match_parent"
         android:foreground="?selectableItemBackground"
-        app:cardBackgroundColor="@color/colorAccent"
+        app:cardBackgroundColor="@android:color/white"
         android:layout_height="match_parent"
         android:clickable="true"
         android:onClick="monAn"
         android:layout_margin="10dp"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="1dp"
+        app:cardElevation="10dp"
         android:layout_weight="1">
 
         <ImageView
@@ -47,9 +49,10 @@
         android:onClick="thucUong"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/colorAccent"
+        app:cardBackgroundColor="@android:color/white"
         android:layout_weight="1"
-        app:cardCornerRadius="15dp">
+        app:cardElevation="10dp"
+        app:cardCornerRadius="1dp">
 
         <ImageView
             android:layout_gravity="center"
@@ -77,9 +80,10 @@
         android:onClick="trangMieng"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/colorAccent"
+        app:cardBackgroundColor="@android:color/white"
         android:layout_weight="1"
-        app:cardCornerRadius="15dp">
+        app:cardElevation="10dp"
+        app:cardCornerRadius="1dp">
 
         <TextView
             android:layout_gravity="bottom|center_horizontal"
