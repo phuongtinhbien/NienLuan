@@ -109,13 +109,15 @@
 
         <Button
             android:layout_marginTop="20dp"
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:textSize="20dp"
+            android:layout_height="50dp"
+            android:foreground="?selectableItemBackground"
+            android:background="@color/colorAccent"
             android:layout_gravity="bottom"
-            android:text="Save"
-            style="@style/Widget.AppCompat.Button.Colored" />
+            android:textColor="@android:color/white"
+            android:text="THÊM VÀO" />
     </LinearLayout>
 
 
